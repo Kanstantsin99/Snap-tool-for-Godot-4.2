@@ -99,6 +99,7 @@ func get_surface(camera) -> Dictionary:
 	var editor_camera = editor_viewport.get_camera_3d()
 	var projected_ray_normal = camera.project_ray_normal(mouse_pos)
 	var query = PhysicsRayQueryParameters3D.create(camera.position, camera.position + projected_ray_normal * RAY_LENGTH)
+	query.exclude = [selected]
 	var ray_result = selected.get_world_3d().direct_space_state.intersect_ray(query)
 	return ray_result
 
