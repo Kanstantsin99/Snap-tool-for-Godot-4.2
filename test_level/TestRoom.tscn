@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://civv55haqwo8k"]
+[gd_scene load_steps=8 format=3 uid="uid://c3smnt8260xx5"]
 
-[ext_resource type="PackedScene" uid="uid://dpo8gfvhfbnxg" path="res://addons/example/object.tscn" id="1_obn3n"]
-[ext_resource type="PackedScene" uid="uid://dopy5pc22iq5y" path="res://rigid_body_3d.tscn" id="2_41jxw"]
+[ext_resource type="PackedScene" uid="uid://dpo8gfvhfbnxg" path="res://test_level/object.tscn" id="1_ql1vf"]
+[ext_resource type="PackedScene" uid="uid://dopy5pc22iq5y" path="res://test_level/rigid_body_3d.tscn" id="2_s6t6b"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rejd1"]
 size = Vector2(100, 100)
@@ -20,7 +20,7 @@ data = PackedVector3Array(-10, 10, 10, 10, 10, 10, -10, -10, 10, 10, 10, 10, 10,
 [node name="TestRoom" type="Node3D"]
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, -9.53674e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9272, -3.33786e-06, 2.41794)
 mesh = SubResource("PlaneMesh_rejd1")
 surface_material_override/0 = SubResource("StandardMaterial3D_q7nks")
 
@@ -41,7 +41,7 @@ transform = Transform3D(1, -3.71315e-10, -1.77837e-10, 1.82701e-10, 1, 1.25189e-
 shape = SubResource("ConcavePolygonShape3D_mwahv")
 
 [node name="Building2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.857553, -0.514395, 1.14491e-08, 0.342776, 0.571445, -0.745624, 0.383545, 0.639412, 0.666366, -15.8285, 0.971451, 4.82565)
+transform = Transform3D(0.857553, -0.514395, 1.14491e-08, 0.342776, 0.571445, -0.745624, 0.383545, 0.639412, 0.666366, -26.7928, -0.739761, 7.77844)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_x1dl8")
 
@@ -51,8 +51,8 @@ mesh = SubResource("BoxMesh_x1dl8")
 transform = Transform3D(1, -3.68254e-08, -5.82371e-10, -5.65157e-09, 1, 1.31886e-08, -9.04504e-09, -1.71814e-08, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_mwahv")
 
-[node name="Object" parent="." instance=ExtResource("1_obn3n")]
-transform = Transform3D(0.999783, 0, 0.0208396, 0, 1, 0, -0.0208396, 0, 0.999783, 3.15236, 0, 15.5955)
+[node name="Object" parent="." instance=ExtResource("1_ql1vf")]
+transform = Transform3D(0.999845, 0, 0.0176259, 0, 1, 0, -0.0176259, 0, 0.999845, 6.54469, -2.38419e-06, 1.59941)
 
-[node name="RigidBody3D" parent="." instance=ExtResource("2_41jxw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.12581, 3.32383, -15.4157)
+[node name="RigidBody3D" parent="." instance=ExtResource("2_s6t6b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46657, 2.89564, -16.6852)

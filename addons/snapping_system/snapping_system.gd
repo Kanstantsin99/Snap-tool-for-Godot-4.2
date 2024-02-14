@@ -54,6 +54,9 @@ func _forward_3d_gui_input(camera, event):
 		snap_mode_toggle = true
 		print("snap_mode is " + str(snap_mode_toggle))
 	
+	if event.is_action_pressed("ui_cancel") and snap_mode_toggle:
+		snap_mode_toggle = false
+		
 	# BUG: Undo Works only in forward direction (ctrl + shift + z)
 	if not dragging and snap_mode_toggle:
 		undo_redo.create_action("Snapping to surface")
