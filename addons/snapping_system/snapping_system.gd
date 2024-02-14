@@ -5,6 +5,7 @@ const RAY_LENGTH = 1000
 
 @onready var undo_redo = get_undo_redo()
 var undo_position = null
+var undo_rotation = null
 var snap_mode_toggle = false
 var by_normal = true
 
@@ -80,6 +81,7 @@ func _forward_3d_gui_input(camera, event):
 	
 	if event.is_pressed() and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and snap_mode_toggle:
 		by_normal = not by_normal
+		selected.rotation = undo_rotation
 
 
 # BUG: Sees CollisionShape3D of a selected Node3D and lagging
@@ -130,6 +132,8 @@ func _on_selection_changed():
 	var nodes = selection.get_selected_nodes()
 	if nodes.size() > 0 and nodes[0] is Node3D:
 		selected = nodes[0]
+		undo_position = selected.position
+		undo_rotation = selected.rotation
 	elif not selected:
 		selected = null
 		snap_mode_toggle = false
