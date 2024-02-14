@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cay6ts8dvr7xx"]
+
+[ext_resource type="PackedScene" uid="uid://dpo8gfvhfbnxg" path="res://addons/example/object.tscn" id="1_gjpe6"]
+[ext_resource type="PackedScene" uid="uid://dopy5pc22iq5y" path="res://rigid_body_3d.tscn" id="2_bspi6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x1dl8"]
+size = Vector3(20, 20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mwahv"]
+data = PackedVector3Array(-10, 10, 10, 10, 10, 10, -10, -10, 10, 10, 10, 10, 10, -10, 10, -10, -10, 10, 10, 10, -10, -10, 10, -10, 10, -10, -10, -10, 10, -10, -10, -10, -10, 10, -10, -10, 10, 10, 10, 10, 10, -10, 10, -10, 10, 10, 10, -10, 10, -10, -10, 10, -10, 10, -10, 10, -10, -10, 10, 10, -10, -10, -10, -10, 10, 10, -10, -10, 10, -10, -10, -10, 10, 10, 10, -10, 10, 10, 10, 10, -10, -10, 10, 10, -10, 10, -10, 10, 10, -10, -10, -10, 10, 10, -10, 10, -10, -10, -10, 10, -10, 10, 10, -10, -10, -10, -10, -10)
+
+[node name="Layer2" type="Node3D"]
+
+[node name="Building" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999832, -0.0175352, 0.00531343, 0.00500523, 0.540356, 0.841421, -0.0176256, -0.841254, 0.540353, 23.3653, -1.75875, 23.6873)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_x1dl8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Building"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building/StaticBody3D"]
+transform = Transform3D(1, -3.71315e-10, -1.77837e-10, 1.82701e-10, 1, 1.25189e-08, 4.96742e-10, -1.33915e-08, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_mwahv")
+
+[node name="Building2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.857553, -0.514395, 1.14491e-08, 0.342776, 0.571445, -0.745624, 0.383545, 0.639412, 0.666366, -15.8285, 0.971451, 4.82565)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_x1dl8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Building2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building2/StaticBody3D"]
+transform = Transform3D(1, -3.68254e-08, -5.82371e-10, -5.65157e-09, 1, 1.31886e-08, -9.04504e-09, -1.71814e-08, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_mwahv")
+
+[node name="Object" parent="." instance=ExtResource("1_gjpe6")]
+transform = Transform3D(0.540302, 0, 0.84147, 0, 1, 0, -0.84147, 0, 0.540302, 6.21822, 8, 5.75086)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("2_bspi6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.8956, 0)
