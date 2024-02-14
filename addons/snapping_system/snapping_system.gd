@@ -25,7 +25,7 @@ func _handles(object):
 	return false
 
 
-func _input(event: InputEvent) -> void:
+func _forward_3d_gui_input(camera, event):
 	# Test block
 	#if Input.is_key_pressed(KEY_T):
 		#var camera = EditorInterface.get_editor_viewport_3d().get_camera_3d()
@@ -44,25 +44,29 @@ func _input(event: InputEvent) -> void:
 		#print("Projected ray normal " + str(projected_ray_normal))
 		#print("Ray " + str(ray) + '\n')
 	
+	if selected == null:
+		return false
+	
+	# BUG: Toggles multiple time when keys are pressed
 	if Input.is_key_pressed(KEY_W) and Input.is_key_pressed(KEY_ALT):
 		snap_mode_toggle = not snap_mode_toggle
 		print("snap_mode is " + str(snap_mode_toggle))
 	
-	if event.is_pressed() and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		pass
-
-
-func _process(delta: float) -> void:
-	if snap_mode_toggle:
-		var surface = get_surface()
+	if snap_mode_toggle and event is InputEventMouse:
+		var surface = get_surface(camera)
 		if not surface:
 			return
 		var face_normal = surface.normal
 		selected.position = surface.position
 		selected.global_transform = align_with_y(selected.global_transform, face_normal)
+	
+	
+	
+	if event.is_pressed() and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		pass
 
 
-func get_surface() -> Dictionary:
+func get_surface(camera) -> Dictionary:
 	#Ray cast to object
 	#var ray_origin = EditorInterface.get_editor_viewport_3d().get_camera_3d().global_position
 	#var ray_direction = ray_origin.direction_to(selected.global_position)
@@ -71,10 +75,6 @@ func get_surface() -> Dictionary:
 	#var ray_result = selected.get_world_3d().direct_space_state.intersect_ray(query)
 	
 	# Ray cast to mouse pos
-	if not selected:
-		return {}
-		
-	var camera = EditorInterface.get_editor_viewport_3d().get_camera_3d()
 	var mouse_pos = EditorInterface.get_editor_viewport_3d().get_mouse_position()
 	var editor_viewport = EditorInterface.get_editor_viewport_3d()
 	var editor_camera = editor_viewport.get_camera_3d()
@@ -82,7 +82,6 @@ func get_surface() -> Dictionary:
 	var query = PhysicsRayQueryParameters3D.create(camera.position, camera.position + projected_ray_normal * RAY_LENGTH)
 	var ray_result = selected.get_world_3d().direct_space_state.intersect_ray(query)
 	return ray_result
-
 
 
 #func snap_to_surface():

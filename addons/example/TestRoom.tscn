@@ -52,7 +52,7 @@ transform = Transform3D(1, -3.68254e-08, -5.82371e-10, -5.65157e-09, 1, 1.31886e
 shape = SubResource("ConcavePolygonShape3D_mwahv")
 
 [node name="Object" parent="." instance=ExtResource("1_blm0h")]
-transform = Transform3D(-0.689881, 0, -0.723923, 0, 1, 0, 0.723923, 0, -0.689881, 2.07858, 0.0737314, 16.9317)
+transform = Transform3D(-0.404235, 0, 0.914655, 0, 1, 0, -0.914655, 0, -0.404235, 2.6356, -9.53674e-07, 16.284)
 
 [node name="RigidBody3D" parent="." instance=ExtResource("2_xw7lr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46657, 2.89564, -16.6852)
