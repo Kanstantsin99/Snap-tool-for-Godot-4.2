@@ -49,7 +49,7 @@ func _forward_3d_gui_input(camera, event):
 	if selected == null:
 		return false
 	
-	# BUG: Toggles multiple time when keys are pressed
+	
 	if Input.is_key_pressed(KEY_W) and Input.is_key_pressed(KEY_ALT) and not snap_mode_toggle:
 		snap_mode_toggle = true
 		print("snap_mode is " + str(snap_mode_toggle))
