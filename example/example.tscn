@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3smnt8260xx5"]
+[gd_scene load_steps=9 format=3 uid="uid://c3smnt8260xx5"]
 
-[ext_resource type="PackedScene" uid="uid://dpo8gfvhfbnxg" path="res://example/object.tscn" id="1_a3h6g"]
 [ext_resource type="PackedScene" uid="uid://dopy5pc22iq5y" path="res://example/rigid_body_3d.tscn" id="2_b7ik3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rejd1"]
@@ -35,21 +34,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_q7nks")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_emqf3")
 
-[node name="RigidBody3D" parent="." instance=ExtResource("2_b7ik3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.0627, -3.33786e-06, -20.076)
-
 [node name="ObjectsToMove" type="Node3D" parent="."]
 transform = Transform3D(1, 1.01169e-10, -2.32879e-10, -4.5879e-11, 1, -1.68947e-12, 1.0715e-10, -3.30629e-12, 1, -1.90735e-06, 0, 1.90735e-06)
 
-[node name="OnlyMesh" parent="ObjectsToMove" instance=ExtResource("1_a3h6g")]
-transform = Transform3D(-0.99893, -1.01169e-10, -0.0462455, -4.57518e-11, 1, -3.80936e-12, 0.0462455, 3.30629e-12, -0.99893, 36.792, -4.29153e-06, 0.722652)
-skeleton = NodePath("../..")
-
 [node name="StaticBody3D" type="StaticBody3D" parent="ObjectsToMove"]
-transform = Transform3D(0.857553, -0.514395, 1.92264e-07, 0.342776, 0.571445, -0.745624, 0.383545, 0.639412, 0.666367, -20.4576, -0.739761, -19.5803)
+transform = Transform3D(0.857553, -0.514395, 1.94109e-07, 0.342776, 0.571445, -0.745624, 0.383545, 0.639412, 0.666367, -18.5965, -3.33786e-06, -14.5791)
+metadata/_edit_group_ = true
 
 [node name="Building2" type="MeshInstance3D" parent="ObjectsToMove/StaticBody3D"]
-transform = Transform3D(1, 1.8741e-08, 2.7041e-08, -1.8741e-08, 1, 1.66345e-08, -2.7041e-08, -1.66345e-08, 1, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_o3763")
 skeleton = NodePath("../../..")
@@ -59,7 +51,7 @@ transform = Transform3D(1, 5.65157e-09, 9.04504e-09, -5.65157e-09, 1, 1.71814e-0
 shape = SubResource("ConcavePolygonShape3D_a3e54")
 
 [node name="MeshWithStaticBody" type="MeshInstance3D" parent="ObjectsToMove"]
-transform = Transform3D(0.999832, -0.0175352, 0.00531343, -0.00326471, 0.114859, 0.993376, -0.0180293, -0.993227, 0.114783, 34.0232, 4.65537, -21.8393)
+transform = Transform3D(0.318905, -1.11286e-09, 2.56167e-09, 1.60941e-10, 1, 1.85842e-11, -3.75877e-10, 3.63692e-11, 1, 38.3262, 4.9067e-07, -17.3323)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_x1dl8")
 skeleton = NodePath("../..")
@@ -67,5 +59,8 @@ skeleton = NodePath("../..")
 [node name="StaticBody3D" type="StaticBody3D" parent="ObjectsToMove/MeshWithStaticBody"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ObjectsToMove/MeshWithStaticBody/StaticBody3D"]
-transform = Transform3D(1, -3.71315e-10, -1.77837e-10, 1.82701e-10, 1, 1.25189e-08, 4.96742e-10, -1.33915e-08, 1, 0, 0, 0)
+transform = Transform3D(1, 8.53067e-11, -3.6796e-10, -8.53067e-11, 1, 4.16848e-10, 3.6796e-10, -4.16848e-10, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_mwahv")
+
+[node name="RigidBody3D" parent="ObjectsToMove" instance=ExtResource("2_b7ik3")]
+transform = Transform3D(0.72377, -3.03507e-10, 0.690042, 9.612e-11, 1, 9.86436e-11, -0.690042, 9.91887e-12, 0.72377, 10.9933, -3.33692e-06, -21.9652)
