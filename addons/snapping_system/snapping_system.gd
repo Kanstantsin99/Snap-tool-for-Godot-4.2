@@ -30,8 +30,7 @@ func _handles(object):
 
 func _forward_3d_gui_input(camera, event):
 	# Test block
-	#if Input.is_key_pressed(KEY_T):
-		#var camera = EditorInterface.get_editor_viewport_3d().get_camera_3d()
+	if Input.is_key_pressed(KEY_T):
 		#var mouse_pos = get_viewport().get_mouse_position()
 		#var editor_viewport = EditorInterface.get_editor_viewport_3d()
 		#var editor_camera = editor_viewport.get_camera_3d()
@@ -39,6 +38,7 @@ func _forward_3d_gui_input(camera, event):
 		#var projected_ray_normal = camera.project_ray_normal(mouse_pos)
 		#var query = PhysicsRayQueryParameters3D.create(projected_ray_origin, projected_ray_origin + projected_ray_normal * 400)
 		#var ray = selected.get_world_3d().direct_space_state.intersect_ray(query)
+		var arr = collision_search(selected)
 		#print("Camera position: " + str(editor_camera.global_position))
 		#print("Mouse position: " + str(mouse_pos))
 		#print("Object position: " + str(selected.global_position))
@@ -46,6 +46,7 @@ func _forward_3d_gui_input(camera, event):
 		#print("Projected ray origin " + str(projected_ray_origin))
 		#print("Projected ray normal " + str(projected_ray_normal))
 		#print("Ray " + str(ray) + '\n')
+		print("Array of children :" + str(arr))
 	
 	if selected == null:
 		return false
@@ -57,11 +58,13 @@ func _forward_3d_gui_input(camera, event):
 	
 	if event.is_action_pressed("ui_cancel") and snap_mode_toggle:
 		snap_mode_toggle = false
+		selected.position = undo_position
+		selected.rotation = undo_rotation
 		
 	# BUG: Undo Works only in forward direction (ctrl + shift + z)
 	if not dragging and snap_mode_toggle:
 		undo_redo.create_action("Snapping to surface")
-		undo_redo.add_do_property(selected, "global_transform", selected.global_transform)
+		undo_redo.add_do_property(selected, "global_transform", undo_position)
 		undo_redo.add_undo_property(selected, "global_transform", undo_position)
 		undo_redo.commit_action()
 	dragging = snap_mode_toggle
@@ -78,13 +81,15 @@ func _forward_3d_gui_input(camera, event):
 	if event.is_pressed() and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		snap_mode_toggle = false
 		dragging = false
+		undo_position = selected.position
+		undo_rotation = selected.rotation
 	
 	if event.is_pressed() and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and snap_mode_toggle:
 		by_normal = not by_normal
 		selected.rotation = undo_rotation
 
 
-# BUG: Sees CollisionShape3D of a selected Node3D and lagging
+
 func get_surface(camera) -> Dictionary:
 	#Ray cast to object
 		#var ray_origin = EditorInterface.get_editor_viewport_3d().get_camera_3d().global_position
@@ -99,7 +104,9 @@ func get_surface(camera) -> Dictionary:
 	var editor_camera = editor_viewport.get_camera_3d()
 	var projected_ray_normal = camera.project_ray_normal(mouse_pos)
 	var query = PhysicsRayQueryParameters3D.create(camera.position, camera.position + projected_ray_normal * RAY_LENGTH)
-	query.exclude = [selected]
+	var collisions: Array
+	collision_search(selected, collisions)
+	query.exclude = collisions
 	var ray_result = selected.get_world_3d().direct_space_state.intersect_ray(query)
 	return ray_result
 
@@ -126,6 +133,14 @@ func align_with_y(xform, new_y):
 	xform.basis.x = -xform.basis.z.cross(new_y)
 	xform.basis = xform.basis.orthonormalized()
 	return xform
+
+
+# Array of node children -> returns collision node path
+func collision_search(node, arr:=[]) -> Array:
+	arr.push_back(node)
+	for child in node.get_children():
+		arr = collision_search(child, arr)
+	return arr.filter(func(x): return x is CollisionObject3D)
 
 
 # Takes parent and assigns it to selected variable
