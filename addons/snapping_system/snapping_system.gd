@@ -33,14 +33,13 @@ func _forward_3d_gui_input(camera, event):
 	if Input.is_key_pressed(KEY_W) and Input.is_key_pressed(KEY_ALT) and not snap_mode_toggle:
 		snap_mode_toggle = true
 		print("snap_mode is ON")
-		print(str(selected.get_gizmos()))
-		
+		hide_gizmo()
 	
 	if event.is_action_pressed("ui_cancel") and snap_mode_toggle:
 		snap_mode_toggle = false
 		print("snap_mode is OFF")
+		show_gizmo()
 		selected.global_transform = undo_transform
-		
 	
 	if snap_mode_toggle and event is InputEventMouse:
 		var surface = get_surface(camera)
@@ -56,6 +55,7 @@ func _forward_3d_gui_input(camera, event):
 	if event.is_pressed() and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and snap_mode_toggle:
 		snap_mode_toggle = false
 		print("snap_mode is OFF")
+		show_gizmo()
 		undo_redo.create_action("Snapping to surface")
 		undo_redo.add_do_property(selected, "global_transform", selected.global_transform)
 		undo_redo.add_undo_property(selected, "global_transform", undo_transform)
@@ -95,6 +95,14 @@ func collision_search(node, arr:=[]) -> Array:
 	for child in node.get_children():
 		arr = collision_search(child, arr)
 	return arr.filter(func(x): return x is CollisionObject3D)
+
+
+func hide_gizmo():
+	selected.set_meta("_edit_lock_", true)
+
+
+func show_gizmo():
+	selected.remove_meta("_edit_lock_")
 
 
 # Takes parent and assigns it to selected variable
