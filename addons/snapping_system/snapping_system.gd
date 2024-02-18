@@ -101,6 +101,7 @@ func hide_gizmo():
 	selected.set_meta("_edit_lock_", true)
 
 
+# BUG: Sometimes you need to push Select ("Q") or another tool to start seeing gizmo again
 func show_gizmo():
 	selected.remove_meta("_edit_lock_")
 

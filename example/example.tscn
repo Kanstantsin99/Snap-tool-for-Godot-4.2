@@ -38,7 +38,7 @@ shape = SubResource("ConcavePolygonShape3D_emqf3")
 transform = Transform3D(1, 1.01169e-10, -2.32879e-10, -4.5879e-11, 1, -1.68947e-12, 1.0715e-10, -3.30629e-12, 1, -1.90735e-06, 0, 1.90735e-06)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ObjectsToMove"]
-transform = Transform3D(0.857553, -0.514395, 2.0116e-07, 0.342776, 0.571445, -0.745624, 0.383545, 0.639412, 0.666367, -14.555, -3.33855e-06, -13.3208)
+transform = Transform3D(0.857553, -0.514395, 2.01621e-07, 0.342776, 0.571445, -0.745624, 0.383545, 0.639412, 0.666367, -14.555, -3.33993e-06, -13.3208)
 metadata/_edit_group_ = true
 
 [node name="Building2" type="MeshInstance3D" parent="ObjectsToMove/StaticBody3D"]
@@ -63,4 +63,4 @@ transform = Transform3D(1, 8.53067e-11, -3.6796e-10, -8.53067e-11, 1, 4.16848e-1
 shape = SubResource("ConcavePolygonShape3D_mwahv")
 
 [node name="RigidBody3D" parent="ObjectsToMove" instance=ExtResource("2_b7ik3")]
-transform = Transform3D(0.999999, -4.5879e-11, 4.29662e-07, 4.5879e-11, 0.999999, -3.30625e-12, -4.29662e-07, 3.30626e-12, 1, 10.9064, -5.24521e-06, -16.5986)
+transform = Transform3D(0.934163, -1.55754e-10, -0.356845, 8.69227e-11, 0.999999, -5.39836e-11, 0.356844, 2.44074e-11, 0.934164, 9.81015, -3.33744e-06, -16.9845)
